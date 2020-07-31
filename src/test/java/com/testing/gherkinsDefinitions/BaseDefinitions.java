@@ -1,9 +1,13 @@
 package com.testing.gherkinsDefinitions;
 
 import com.testing.serenitySteps.BaseSteps;
+import com.testing.serenitySteps.BookerSteps;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+import java.io.IOException;
 
 public class BaseDefinitions {
 
@@ -36,4 +40,10 @@ public class BaseDefinitions {
   public void theArrayPathAtIndexContainsFollowingData(String path, Integer idx, DataTable dataTable) throws Throwable {
     BaseSteps.valuesOfPathArrayAtIndex(path, idx, dataTable);
   }
+
+    @When("^the user requests booking with following data:$")
+    public void theUserRequestsBookingWithFollowingData(DataTable dataTable) throws IOException {
+      BookerSteps.getBooking();
+
+    }
 }

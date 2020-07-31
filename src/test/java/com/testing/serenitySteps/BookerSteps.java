@@ -16,6 +16,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 public class BookerSteps extends BaseSteps {
   private final static String _AUTH_ = "/auth/";
   private final static String _BOOKING_ = "/booking/";
+  private static Object Response;
 
   @Steps
   public BookerSteps bookerSteps;
@@ -40,5 +41,19 @@ public class BookerSteps extends BaseSteps {
   public static void validateAmountOfBookingIds(int amount){
     Response response = Serenity.sessionVariableCalled(RESPONSE);
     Assert.assertEquals("Amount of Booking Ids", amount, response.jsonPath().getList("bookingid").size());
+  }
+  @Step
+  public static void createdBooking(DataTable dataTable) throws IOException {
+    sendRequestWithBodyJson(POST, _BOOKING_, createBody(dataTable));
+    sessionVariableCalled(RESPONSE);
+    Response response = Serenity.sessionVariableCalled(Response);
+    response.jsonPath().get("bookingid");
+    String str = response.jsonPath().get("bookingid");
+
+    System.out.println("__________");
+  }
+  @Step
+  public static void getBooking() {
+    sendRequest(GET, _BOOKING_ + sessionVariableCalled("bookingid") );
   }
 }
